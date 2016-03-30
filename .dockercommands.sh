@@ -1,13 +1,5 @@
 # A file containing docker commands
 
-
-# Start default docker machine
-alias dockerstart="docker-machine start default; docker-machine env; eval $(docker-machine env)"
-
-# Command needed for every new terminal
-alias dockereval="eval $(docker-machine env)"
-dockereval
-
 dataBash() {
 	docker run -v $(pwd):/home/jovyan/work --rm -it datascience /bin/bash
 }
