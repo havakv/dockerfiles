@@ -28,3 +28,10 @@ RUN vim +BundleInstall +qall
 #-------------------------------------------------
 # Need this to use pandas.query
 RUN bash -c "source activate python2 && conda install -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
+
+
+#-------------------------------------------------
+# Adding aditional R packages
+#conda install conda-build
+#conda skeleton cran sand
+#conda build r-sand

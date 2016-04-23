@@ -1,5 +1,16 @@
 # A file containing docker commands
 
+# Stop all running
+dstopall(){
+	docker stop $(docker ps -a -q)
+}
+
+# Remove all containers
+drmall(){
+	docker rm $(docker ps -a -q)
+}
+
+
 dataBash() {
 	docker run -v $(pwd):/home/jovyan/work --rm -it datascience /bin/bash
 }
