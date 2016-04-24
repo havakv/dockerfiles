@@ -59,4 +59,7 @@ dxelatex() {
 	fi
 }
 
+dlatexvim() {
+	docker run --rm -v $(pwd):/home/havakv/mnt -it latex /bin/bash
+}
 
