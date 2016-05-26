@@ -2,6 +2,13 @@ FROM jupyter/datascience-notebook
 
 ENV USER jovyan
 
+USER $USER
+#-------------------------------------------------
+# Add vim to notebooks
+RUN cd /opt/conda/share/jupyter/nbextensions && \
+	git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding && \
+	jupyter nbextension enable vim_binding/vim_binding
+
 USER root
 
 #-------------------------------------------------
@@ -35,3 +42,5 @@ RUN bash -c "source activate python2 && conda install -c https://conda.anaconda.
 #conda install conda-build
 #conda skeleton cran sand
 #conda build r-sand
+
+
