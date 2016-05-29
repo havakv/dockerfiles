@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook
+FROM datascience
 
 # Install dependencies
 RUN conda install --yes -p $CONDA_DIR/envs/python2 \
