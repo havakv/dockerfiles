@@ -27,6 +27,18 @@ datascience() {
 	fi
 }
 
+# Start datascience image
+dsvim() {
+	if [ -z "$1" ]
+	then 
+		echo "need file"
+	else
+		# This should be done more general, but works for the moment...
+		path=$(echo $(pwd) | sed -e 's/\/home\/kvamme\///g')
+		docker run -v ~/:/home/jovyan/work --rm -it datascience /bin/bash -c "cd $path && vim $1"
+	fi
+}
+
 # Set theme on port <$1> to space legos
 jupyterDark() {
 	if [ -z "$1" ]
