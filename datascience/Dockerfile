@@ -27,14 +27,28 @@ COPY .vimrc /home/$USER/.vimrc
 # Get vundle
 RUN mkdir -p /home/$USER/.vim/bundle/vundle && \
 	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && \
-	vim +BundleList +qall
+	vim +BundleList +qall && \
+	vim +BundleInstall +qall
 
 # Install plugins
-RUN vim +BundleInstall +qall
+#RUN vim +BundleInstall +qall
+
+USER root
+RUN chown $USER /home/$USER/.vimrc
+USER $USER
+
+# Add colorscheme
+RUN git clone https://github.com/vim-scripts/xoria256.vim.git && \
+	mkdir -p $HOME/.vim && \
+	mv xoria256.vim/colors $HOME/.vim/ && \
+	rm -rf xoria256.vim && \
+	echo "export TERM=xterm-256color" >> $HOME/.bashrc && \
+	echo "\" colorscheme xoria256\nsyntax enable\nset background=dark\ncolorscheme xoria256" >> $HOME/.vimrc
+
 
 #-------------------------------------------------
 # Need this to use pandas.query
-RUN bash -c "source activate python2 && conda install -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
+RUN bash -c "source activate python2 && conda install -y -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
 
 
 #-------------------------------------------------
@@ -42,5 +56,3 @@ RUN bash -c "source activate python2 && conda install -c https://conda.anaconda.
 #conda install conda-build
 #conda skeleton cran sand
 #conda build r-sand
-
-

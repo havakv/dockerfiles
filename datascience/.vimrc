@@ -5,6 +5,7 @@
 set nocompatible
 filetype off
 
+" Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -15,6 +16,8 @@ Bundle 'gmarik/vundle'
 " The bundles you install will be listed here
 
 filetype plugin indent on
+
+
 
 " The rest of your config follows here
 
