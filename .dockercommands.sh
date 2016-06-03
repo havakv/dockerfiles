@@ -28,13 +28,16 @@ datascience() {
 }
 
 # Start datascience image
+path_from_home=$(echo $HOME/dockerfiles/path_from_home.py)
 dsvim() {
 	if [ -z "$1" ]
 	then 
 		echo "need file"
 	else
 		# This should be done more general, but works for the moment...
-		path=$(echo $(pwd) | sed -e 's/\/home\/kvamme\///g')
+		# path=$(echo $(pwd) | sed -e 's/\/home\/kvamme\///g')
+		#path=$(./path_from_home.py)
+		path=$($path_from_home)
 		docker run -v ~/:/home/jovyan/work --rm -it datascience /bin/bash -c "cd $path && vim $1"
 	fi
 }
