@@ -23,16 +23,6 @@ USER $USER
 
 # Add local .vimrc
 COPY .vimrc /home/$USER/.vimrc
-
-# Get vundle
-RUN mkdir -p /home/$USER/.vim/bundle/vundle && \
-	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && \
-	vim +BundleList +qall && \
-	vim +BundleInstall +qall
-
-# Install plugins
-#RUN vim +BundleInstall +qall
-
 USER root
 RUN chown $USER /home/$USER/.vimrc
 USER $USER
@@ -42,8 +32,14 @@ RUN git clone https://github.com/vim-scripts/xoria256.vim.git && \
 	mkdir -p $HOME/.vim && \
 	mv xoria256.vim/colors $HOME/.vim/ && \
 	rm -rf xoria256.vim && \
-	echo "export TERM=xterm-256color" >> $HOME/.bashrc && \
-	echo "\" colorscheme xoria256\nsyntax enable\nset background=dark\ncolorscheme xoria256" >> $HOME/.vimrc
+	echo "export TERM=xterm-256color" >> $HOME/.bashrc 
+
+# Get vundle
+RUN mkdir -p /home/$USER/.vim/bundle/vundle && \
+	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && \
+    export TERM=xterm-256color && \
+	vim +BundleList +qall && \
+	vim +BundleInstall +qall
 
 
 #-------------------------------------------------

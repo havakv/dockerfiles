@@ -5,6 +5,11 @@
 set nocompatible
 filetype off
 
+" colorscheme xoria256
+syntax enable
+set background=dark
+colorscheme xoria256 
+
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
