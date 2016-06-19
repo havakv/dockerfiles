@@ -1,13 +1,18 @@
 # A file containing docker commands
 
 # Stop all running
-dstopall(){
+dockerStopAll(){
 	docker stop $(docker ps -a -q)
 }
 
 # Remove all containers
-drmall(){
+dockerRmAll(){
 	docker rm $(docker ps -a -q)
+}
+
+# Remove all <none> images
+dockerRmNoneImages(){
+    docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
 }
 
 
