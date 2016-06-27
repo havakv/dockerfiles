@@ -4,6 +4,16 @@ ENV USER jovyan
 
 USER $USER
 #-------------------------------------------------
+# Update conda to make sure we have mkl
+RUN conda update -y conda &&\
+	conda update -y mkl &&\
+	conda update -y numpy
+#RUN bash -c "source activate python2 && conda update -y mkl && conda update -y numpy"
+
+# Need this to use pandas.query
+#RUN bash -c "source activate python2 && conda install -y -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
+
+#-------------------------------------------------
 # Add vim to notebooks
 RUN cd /opt/conda/share/jupyter/nbextensions && \
         git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding && \
@@ -44,11 +54,6 @@ RUN mkdir -p /home/$USER/.vim/bundle/vundle && \
 COPY python.vim $HOME/.vim/ftplugin/python.vim
     
 
-#pip install jedi
-
-#-------------------------------------------------
-# Need this to use pandas.query
-RUN bash -c "source activate python2 && conda install -y -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
 
 
 #-------------------------------------------------
