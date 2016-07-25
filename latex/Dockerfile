@@ -42,12 +42,39 @@ RUN mkdir /home/$USER/mnt
 
 USER root
 
-# Configure container startup
-WORKDIR /home/$USER/mnt
-CMD ["/bin/bash"]
+#-------------------------------------------------
+# Install vim 
+RUN apt-get update && apt-get install -y \
+        vim-gtk \
+        build-essential cmake \
+        python-dev \
+        python3-dev
+
+USER $USER
 
 # Add local .vimrc
 COPY .vimrc /home/$USER/.vimrc
+USER root
+RUN chown $USER /home/$USER/.vimrc
+USER $USER
+
+# Add colorscheme
+RUN git clone https://github.com/vim-scripts/xoria256.vim.git /home/$USER/xoria256.vim && \
+        mkdir -p /home/$USER/.vim && \
+        mv /home/$USER/xoria256.vim/colors /home/$USER/.vim/ && \
+        rm -rf /home/$USER/xoria256.vim && \
+        echo "export TERM=xterm-256color" >> /home/$USER/.bashrc 
+
+# Get vundle and plugins
+RUN mkdir -p /home/$USER/.vim/bundle/vundle && \
+        git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle && \
+        export TERM=xterm-256color && \
+        vim +BundleList +qall && \
+        vim +BundleInstall +qall 
+
+# Configure container startup
+WORKDIR /home/$USER/mnt
+CMD ["/bin/bash"]
 
 USER $USER
 
