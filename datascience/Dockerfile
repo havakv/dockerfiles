@@ -5,13 +5,31 @@ ENV USER jovyan
 USER $USER
 #-------------------------------------------------
 # Update conda to make sure we have mkl
-RUN conda update -y conda &&\
-	conda update -y mkl &&\
-	conda update -y numpy
+#RUN conda update -y conda &&\
+	#conda update -y mkl &&\
+	#conda update -y numpy
 #RUN bash -c "source activate python2 && conda update -y mkl && conda update -y numpy"
 
 # Need this to use pandas.query
 #RUN bash -c "source activate python2 && conda install -y -c https://conda.anaconda.org/pandas numexpr && conda update pandas"
+
+#-------------------------------------------------
+# More libraries
+RUN conda install --quiet --yes \
+	'flask' \
+	'flask-login' \
+	#'flask-openid' \
+	#'flask-mail' \
+	#'flask-sqlalchemy' \
+	#'sqlalchemy-migrate' \
+	#'flask-whooshalchemy' \
+	'flask-wtf' \
+	#'flask-babel' \
+	#'guess_language' \
+	#'flipflop' \
+	'coverage'
+    #conda remove --quiet --yes --force qt pyqt && \
+    #conda clean -tipsy
 
 #-------------------------------------------------
 # Add vim to notebooks

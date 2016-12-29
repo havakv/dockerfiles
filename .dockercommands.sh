@@ -41,7 +41,7 @@ dsvim() {
 	else
 		path=$($path_from_home)
 		#Should find a way to source the .bashrc file!!!!!!
-		docker run -v ~/:/home/jovyan/work --rm -p 8111:8888 -it datascience /bin/bash -c "export TERM=xterm-256color && cd $path && vim $1"
+		docker run -v ~/:/home/jovyan/work --rm -it datascience /bin/bash -c "export TERM=xterm-256color && cd $path && vim $1"
 	fi
 }
 
