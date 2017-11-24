@@ -78,6 +78,6 @@ dxelatex() {
 }
 
 dlatexvim() {
-	docker run --rm -v $(pwd):/home/havakv/mnt -it latex /bin/bash
+	docker run --rm -v $(pwd):/home/havakv/mnt -it latex1604 /bin/bash
 }
 

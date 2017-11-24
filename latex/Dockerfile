@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 USER root
 
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     	texlive-latex-extra \
 	latex-xcolor \
 	pgf \
-	texlive-lang-norwegian \
+	#texlive-lang-norwegian \
     	texlive-fonts-extra \
 	texlive-bibtex-extra \
 	texlive-fonts-recommended \
@@ -21,8 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	
 
 # Get us locale
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen "en_US.UTF-8"
+#RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    #locale-gen "en_US.UTF-8"
 
 # Configure environment
 ENV SHELL /bin/bash
